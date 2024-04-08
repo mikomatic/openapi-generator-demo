@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 
-// import {ApiModule, Book} from "./generated/openapi";
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -15,13 +13,13 @@ export class AppComponent implements OnInit {
 
   // books: Book[] = [];
 
-  //constructor(private readonly defaultService: DefaultService) {
-  //}
+  // constructor(private readonly defaultService: DefaultService) {
+  // }
 
   ngOnInit(): void {
-    //this.defaultService.getAllBooks().subscribe(value => {
-    //  this.books = value;
-    //})
+    // this.defaultService.getAllBook().subscribe(value => {
+    //   this.books = value;
+    // })
   }
 
 

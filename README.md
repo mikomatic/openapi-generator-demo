@@ -73,3 +73,41 @@ The project is for the most part maven multi-module projet.
 - `api-producer`: spring application implementing our API
 - `api-consumer`: spring application command line application consuming our API
 - `front`: angular application consuming our API
+
+### Exercice 1
+
+In the `api` modules, open the `src/main/resources/openapi.yml` spec file
+
+Let's create a quick specification if the following endpoints:
+
+```
+# CREATE A BOOK
+POST localhost:8080/book
+Content-Type: application/json
+
+{
+  "title": "Coucou",
+  "nbOfPages": 2
+}
+
+
+# Get all Books
+GET localhost:8080/book
+Content-Type: application/json
+
+```
+
+- Once the spec is defined, you can build it with maven `mvn clean package`.
+    - Check that, in the `api-producer` module a
+      class `api-producer/target/generated-sources/openapi/src/main/java/com/example/api/producer/BookApi.java` has been
+      generated
+
+Apply the first implementation by extending the modifying the `DemoController` as:
+
+```java
+@RestController
+@CrossOrigin
+public class DemoController implements BookApi {
+
+}
+```

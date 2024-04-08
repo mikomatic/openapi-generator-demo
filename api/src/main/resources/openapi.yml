@@ -4,5 +4,46 @@ info:
   description: Demo Workshop API
   version: 1.0.0
 
-paths: {}
-
+paths: { }
+#  /book:
+#    get:
+#      description: get all books
+#      operationId: getAllBook
+#      responses:
+#        200:
+#          description: Get list of book
+#          content:
+#            "application/json":
+#              schema:
+#                type: array
+#                items:
+#                  $ref: "#/components/schemas/Book"
+#    post:
+#      description: Get a Book
+#      operationId: createBook
+#      requestBody:
+#        content:
+#          "application/json":
+#            schema:
+#              $ref: "#/components/schemas/Book"
+#      responses:
+#        201:
+#          description: When an object created is ok
+#          content:
+#            "application/json":
+#              schema:
+#                $ref: "#/components/schemas/Book"
+#
+#
+#
+#components:
+#  schemas:
+#    Book:
+#      type: object
+#      required:
+#        - title
+#      properties:
+#        title:
+#          type: string
+#        nbOfPages:
+#          type: number

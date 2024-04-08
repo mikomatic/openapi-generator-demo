@@ -10,34 +10,25 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
-    <artifactId>api-producer</artifactId>
-    <properties>
-        <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
-        <openapi-generator-maven-plugin.version>7.4.0</openapi-generator-maven-plugin.version>
-        <swagger-annotations-jakarta.version>2.2.9</swagger-annotations-jakarta.version>
-    </properties>
+    <artifactId>api-consumer</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations-jakarta</artifactId>
-            <version>${swagger-annotations-jakarta.version}</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
     </dependencies>
 
@@ -82,16 +73,15 @@
                         </goals>
                         <configuration>
                             <inputSpec>${project.build.directory}/openapi.yml</inputSpec>
-                            <generatorName>spring</generatorName>
-                            <apiPackage>com.example.api.producer</apiPackage>
-                            <modelPackage>com.example.api.producer.model</modelPackage>
-                            <configHelp>false</configHelp>
+                            <generatorName>java</generatorName>
+                            <apiPackage>com.example.api.consumer</apiPackage>
+                            <modelPackage>com.example.api.consumer.model</modelPackage>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
                             <configOptions>
-                                <annotationLibrary>none</annotationLibrary>
-                                <documentationProvider>none</documentationProvider>
+                                <library>native</library>
                                 <openApiNullable>false</openApiNullable>
-                                <useSpringBoot3>true</useSpringBoot3>
-                                <interfaceOnly>true</interfaceOnly>
+                                <useJakartaEe>true</useJakartaEe>
                             </configOptions>
                         </configuration>
                     </execution>
@@ -103,4 +93,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

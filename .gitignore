@@ -321,3 +321,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,intellij+all,linux,windows,node,angular
+
+/front/src/app/generated/

@@ -155,7 +155,7 @@ public class DemoController implements BookApi {
 
 Once it's done, you can start the producer application.
 
-### Exercice 2
+### Exercice 2 - Generate a consumer implementation (java)
 
 Now let's check what is generated in the `api-consumer` module.
 In the `api-consumer/target/generated-sources/openapi/src/main/java/com/example/api/consumer` folder
@@ -192,3 +192,6 @@ public class ApiConsumerApp implements CommandLineRunner {
   }
 }
 ```
+
+### Exercice 3 - Generate a consumer implementation (typescript-angular)
+

@@ -74,7 +74,7 @@ The project is for the most part maven multi-module projet.
 - `api-consumer`: spring application command line application consuming our API
 - `front`: angular application consuming our API
 
-### Exercice 1
+### Exercice 1 - Generate a producer implementation (java)
 
 In the `api` modules, open the `src/main/resources/openapi.yml` spec file
 
@@ -97,6 +97,15 @@ Content-Type: application/json
 
 ```
 
+The `Book` entity should have two properties:
+
+- a **mandatory** title
+- a optional number of pages
+
+> [!NOTE]  
+> In order to define the spec, you can use Intellij IDEA that has built-in support or
+> the [online editor](https://editor-next.swagger.io/)
+
 - Once the spec is defined, you can build it with maven `mvn clean package`.
     - Check that, in the `api-producer` module a
       class `api-producer/target/generated-sources/openapi/src/main/java/com/example/api/producer/BookApi.java` has been
@@ -105,9 +114,81 @@ Content-Type: application/json
 Apply the first implementation by extending the modifying the `DemoController` as:
 
 ```java
+
 @RestController
 @CrossOrigin
 public class DemoController implements BookApi {
 
+}
+```
+
+> [!NOTE]  
+> Start the producer application:
+> - an "implementation" returning `501` should be available
+> - validation should work
+> - we didn't redefined static URLs in our code
+
+Now that we have a "dummy" implementation, override the generated method
+in a simple implementation. _the objective is not to have a fully implementation, just what's is necessary for demo
+purposes._
+
+```java
+
+@RestController
+// only for testing purposes, don't do this in production :)
+@CrossOrigin
+public class DemoController implements BookApi {
+  List<Book> books = new ArrayList<>();
+
+  @Override
+  public ResponseEntity<Book> createBook(Book book) {
+    books.add(book);
+    return ResponseEntity.ok(book);
+  }
+
+  @Override
+  public ResponseEntity<List<Book>> getAllBook() {
+    return ResponseEntity.ok(books);
+  }
+}
+```
+
+Once it's done, you can start the producer application.
+
+### Exercice 2
+
+Now let's check what is generated in the `api-consumer` module.
+In the `api-consumer/target/generated-sources/openapi/src/main/java/com/example/api/consumer` folder
+two main classes should have be generated:
+
+- `ApiClient`: use to define `host`, `port` & `base path` for our API
+- `DefaultApi`: take an `ApiClient` as parameter. our generated implementation
+
+Use these two classe in the `ApiConsumerApp` to verify that we can call our current producer.
+Note that we did not define **how** to interact with our API, we only used a generated client, configuring it to point
+to the current server implementation location.
+
+```java
+
+@SpringBootApplication
+@Slf4j
+public class ApiConsumerApp implements CommandLineRunner {
+
+  public static void main(String[] args) {
+    SpringApplication.run(ApiConsumerApp.class, args);
+  }
+
+  @Override
+  public void run(String... args) throws Exception {
+
+    ApiClient apiClient = new ApiClient();
+    apiClient.setHost("localhost");
+    apiClient.setPort(8080);
+
+    DefaultApi defaultApi = new DefaultApi(apiClient);
+    List<Book> allBook = defaultApi.getAllBook();
+
+    log.info("Getting all books {}", allBook);
+  }
 }
 ```
